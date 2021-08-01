@@ -120,3 +120,5 @@ C:\Users\bombo\OneDrive\Desktop\tbc task\angular proj\ECommerceApp-c09eaeb4fab22
 C:\Users\bombo\OneDrive\Desktop\tbc task\angular proj\ECommerceApp-c09eaeb4fab22de6f7115cbc15c53adc228b00ee\API\obj\Debug\net5.0\ref\API.dll
 C:\Users\bombo\OneDrive\Desktop\tbc task\angular proj\ECommerceApp-c09eaeb4fab22de6f7115cbc15c53adc228b00ee\API\obj\Debug\net5.0\API.pdb
 C:\Users\bombo\OneDrive\Desktop\tbc task\angular proj\ECommerceApp-c09eaeb4fab22de6f7115cbc15c53adc228b00ee\API\obj\Debug\net5.0\API.genruntimeconfig.cache
+C:\Users\bombo\OneDrive\Desktop\tbc task\angular proj\ECommerceApp-c09eaeb4fab22de6f7115cbc15c53adc228b00ee\API\bin\Debug\net5.0\UserApi.DAL.dll
+C:\Users\bombo\OneDrive\Desktop\tbc task\angular proj\ECommerceApp-c09eaeb4fab22de6f7115cbc15c53adc228b00ee\API\bin\Debug\net5.0\UserApi.DAL.pdb

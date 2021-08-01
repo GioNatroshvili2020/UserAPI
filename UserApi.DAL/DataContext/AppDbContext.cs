@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using UserApi.DAL.Entities;
 
 namespace UserApi.DAL.DataContext
 {
@@ -8,6 +9,9 @@ namespace UserApi.DAL.DataContext
         {
 
         }
-       
+        public DbSet<Person> Person { get; set; }
+        public DbSet<City> City { get; set; }
+
+
     }
 }

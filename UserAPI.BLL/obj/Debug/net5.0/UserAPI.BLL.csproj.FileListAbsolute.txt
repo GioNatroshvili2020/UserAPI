@@ -1,0 +1,12 @@
+C:\Users\bombo\OneDrive\Desktop\tbc task\angular proj\ECommerceApp-c09eaeb4fab22de6f7115cbc15c53adc228b00ee\UserAPI.BLL\bin\Debug\net5.0\UserAPI.BLL.deps.json
+C:\Users\bombo\OneDrive\Desktop\tbc task\angular proj\ECommerceApp-c09eaeb4fab22de6f7115cbc15c53adc228b00ee\UserAPI.BLL\bin\Debug\net5.0\UserAPI.BLL.dll
+C:\Users\bombo\OneDrive\Desktop\tbc task\angular proj\ECommerceApp-c09eaeb4fab22de6f7115cbc15c53adc228b00ee\UserAPI.BLL\bin\Debug\net5.0\ref\UserAPI.BLL.dll
+C:\Users\bombo\OneDrive\Desktop\tbc task\angular proj\ECommerceApp-c09eaeb4fab22de6f7115cbc15c53adc228b00ee\UserAPI.BLL\bin\Debug\net5.0\UserAPI.BLL.pdb
+C:\Users\bombo\OneDrive\Desktop\tbc task\angular proj\ECommerceApp-c09eaeb4fab22de6f7115cbc15c53adc228b00ee\UserAPI.BLL\obj\Debug\net5.0\UserAPI.BLL.csprojAssemblyReference.cache
+C:\Users\bombo\OneDrive\Desktop\tbc task\angular proj\ECommerceApp-c09eaeb4fab22de6f7115cbc15c53adc228b00ee\UserAPI.BLL\obj\Debug\net5.0\UserAPI.BLL.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\bombo\OneDrive\Desktop\tbc task\angular proj\ECommerceApp-c09eaeb4fab22de6f7115cbc15c53adc228b00ee\UserAPI.BLL\obj\Debug\net5.0\UserAPI.BLL.AssemblyInfoInputs.cache
+C:\Users\bombo\OneDrive\Desktop\tbc task\angular proj\ECommerceApp-c09eaeb4fab22de6f7115cbc15c53adc228b00ee\UserAPI.BLL\obj\Debug\net5.0\UserAPI.BLL.AssemblyInfo.cs
+C:\Users\bombo\OneDrive\Desktop\tbc task\angular proj\ECommerceApp-c09eaeb4fab22de6f7115cbc15c53adc228b00ee\UserAPI.BLL\obj\Debug\net5.0\UserAPI.BLL.csproj.CoreCompileInputs.cache
+C:\Users\bombo\OneDrive\Desktop\tbc task\angular proj\ECommerceApp-c09eaeb4fab22de6f7115cbc15c53adc228b00ee\UserAPI.BLL\obj\Debug\net5.0\UserAPI.BLL.dll
+C:\Users\bombo\OneDrive\Desktop\tbc task\angular proj\ECommerceApp-c09eaeb4fab22de6f7115cbc15c53adc228b00ee\UserAPI.BLL\obj\Debug\net5.0\ref\UserAPI.BLL.dll
+C:\Users\bombo\OneDrive\Desktop\tbc task\angular proj\ECommerceApp-c09eaeb4fab22de6f7115cbc15c53adc228b00ee\UserAPI.BLL\obj\Debug\net5.0\UserAPI.BLL.pdb
