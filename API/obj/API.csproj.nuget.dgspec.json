@@ -1,0 +1,151 @@
+{
+  "format": 1,
+  "restore": {
+    "C:\\Users\\bombo\\OneDrive\\Desktop\\tbc task\\angular proj\\ECommerceApp-c09eaeb4fab22de6f7115cbc15c53adc228b00ee\\API\\API.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\bombo\\OneDrive\\Desktop\\tbc task\\angular proj\\ECommerceApp-c09eaeb4fab22de6f7115cbc15c53adc228b00ee\\API\\API.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\bombo\\OneDrive\\Desktop\\tbc task\\angular proj\\ECommerceApp-c09eaeb4fab22de6f7115cbc15c53adc228b00ee\\API\\API.csproj",
+        "projectName": "API",
+        "projectPath": "C:\\Users\\bombo\\OneDrive\\Desktop\\tbc task\\angular proj\\ECommerceApp-c09eaeb4fab22de6f7115cbc15c53adc228b00ee\\API\\API.csproj",
+        "packagesPath": "C:\\Users\\bombo\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\bombo\\OneDrive\\Desktop\\tbc task\\angular proj\\ECommerceApp-c09eaeb4fab22de6f7115cbc15c53adc228b00ee\\API\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\bombo\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net5.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net5.0": {
+            "targetAlias": "net5.0",
+            "projectReferences": {
+              "C:\\Users\\bombo\\OneDrive\\Desktop\\tbc task\\angular proj\\ECommerceApp-c09eaeb4fab22de6f7115cbc15c53adc228b00ee\\UserApi.DAL\\UserApi.DAL.csproj": {
+                "projectPath": "C:\\Users\\bombo\\OneDrive\\Desktop\\tbc task\\angular proj\\ECommerceApp-c09eaeb4fab22de6f7115cbc15c53adc228b00ee\\UserApi.DAL\\UserApi.DAL.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net5.0": {
+          "targetAlias": "net5.0",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[5.0.8, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[5.0.8, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[5.0.8, )"
+            },
+            "Swashbuckle.AspNetCore": {
+              "target": "Package",
+              "version": "[5.6.3, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.205\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\bombo\\OneDrive\\Desktop\\tbc task\\angular proj\\ECommerceApp-c09eaeb4fab22de6f7115cbc15c53adc228b00ee\\UserApi.DAL\\UserApi.DAL.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\bombo\\OneDrive\\Desktop\\tbc task\\angular proj\\ECommerceApp-c09eaeb4fab22de6f7115cbc15c53adc228b00ee\\UserApi.DAL\\UserApi.DAL.csproj",
+        "projectName": "UserApi.DAL",
+        "projectPath": "C:\\Users\\bombo\\OneDrive\\Desktop\\tbc task\\angular proj\\ECommerceApp-c09eaeb4fab22de6f7115cbc15c53adc228b00ee\\UserApi.DAL\\UserApi.DAL.csproj",
+        "packagesPath": "C:\\Users\\bombo\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\bombo\\OneDrive\\Desktop\\tbc task\\angular proj\\ECommerceApp-c09eaeb4fab22de6f7115cbc15c53adc228b00ee\\UserApi.DAL\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\bombo\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net5.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net5.0": {
+            "targetAlias": "net5.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net5.0": {
+          "targetAlias": "net5.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.205\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}
