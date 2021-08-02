@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace UserAPI.BLL.Helpers
+namespace UserApi.DAL.Entities
 {
     public interface IDbEntity
     {
-        Guid ID { get; set; }
+        int ID { get; set; }
 
         DateTime DateCreated { get; set; }
         DateTime? DateChanged { get; set; }

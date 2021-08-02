@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace UserAPI.BLL.Repository
+namespace UserAPI.BLL.Enum
 {
-    public class UserRepostitory
+    public enum GenderEnum
     {
-        
-        
+        Male = 0,
+        Female = 1
     }
 }

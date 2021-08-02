@@ -4,11 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace UserApi.DAL.Enums
+namespace UserAPI.BLL.Enum
 {
-    public enum GenderEnum
+    public enum PhoneNumTypeEnum
     {
-        Male = 0,
-        Female = 1
+        Mobile = 0,
+        Home = 1,
+        Office = 2
     }
 }

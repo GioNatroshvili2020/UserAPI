@@ -10,3 +10,6 @@ C:\Users\bombo\OneDrive\Desktop\tbc task\angular proj\ECommerceApp-c09eaeb4fab22
 C:\Users\bombo\OneDrive\Desktop\tbc task\angular proj\ECommerceApp-c09eaeb4fab22de6f7115cbc15c53adc228b00ee\UserAPI.BLL\obj\Debug\net5.0\UserAPI.BLL.dll
 C:\Users\bombo\OneDrive\Desktop\tbc task\angular proj\ECommerceApp-c09eaeb4fab22de6f7115cbc15c53adc228b00ee\UserAPI.BLL\obj\Debug\net5.0\ref\UserAPI.BLL.dll
 C:\Users\bombo\OneDrive\Desktop\tbc task\angular proj\ECommerceApp-c09eaeb4fab22de6f7115cbc15c53adc228b00ee\UserAPI.BLL\obj\Debug\net5.0\UserAPI.BLL.pdb
+C:\Users\bombo\OneDrive\Desktop\tbc task\angular proj\ECommerceApp-c09eaeb4fab22de6f7115cbc15c53adc228b00ee\UserAPI.BLL\bin\Debug\net5.0\UserApi.DAL.dll
+C:\Users\bombo\OneDrive\Desktop\tbc task\angular proj\ECommerceApp-c09eaeb4fab22de6f7115cbc15c53adc228b00ee\UserAPI.BLL\bin\Debug\net5.0\UserApi.DAL.pdb
+C:\Users\bombo\OneDrive\Desktop\tbc task\angular proj\ECommerceApp-c09eaeb4fab22de6f7115cbc15c53adc228b00ee\UserAPI.BLL\obj\Debug\net5.0\UserAPI.BLL.csproj.CopyComplete

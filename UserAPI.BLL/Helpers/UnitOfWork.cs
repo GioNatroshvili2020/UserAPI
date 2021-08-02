@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Transactions;
+using UserApi.DAL.Entities;
 
 namespace UserAPI.BLL.Helpers
 {

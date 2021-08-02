@@ -4,15 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace UserApi.DAL.Entities
+namespace UserAPI.BLL.Model
 {
-    public class City:IDbEntity
+   public class CityModel
     {
         public int ID { get; set; }
         public string Name { get; set; }
         public DateTime DateCreated { get; set; }
-        public DateTime? DateChanged { get; set; }
-        public DateTime? DateDeleted { get; set; }
 
     }
 }
