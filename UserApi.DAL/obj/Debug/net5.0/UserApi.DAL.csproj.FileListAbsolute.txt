@@ -10,3 +10,15 @@ C:\Users\bombo\OneDrive\Desktop\tbc task\angular proj\ECommerceApp-c09eaeb4fab22
 C:\Users\bombo\OneDrive\Desktop\tbc task\angular proj\ECommerceApp-c09eaeb4fab22de6f7115cbc15c53adc228b00ee\UserApi.DAL\obj\Debug\net5.0\UserApi.DAL.dll
 C:\Users\bombo\OneDrive\Desktop\tbc task\angular proj\ECommerceApp-c09eaeb4fab22de6f7115cbc15c53adc228b00ee\UserApi.DAL\obj\Debug\net5.0\ref\UserApi.DAL.dll
 C:\Users\bombo\OneDrive\Desktop\tbc task\angular proj\ECommerceApp-c09eaeb4fab22de6f7115cbc15c53adc228b00ee\UserApi.DAL\obj\Debug\net5.0\UserApi.DAL.pdb
+C:\Users\gnatroshvili\Desktop\tbc task\userApi new\UserAPI\UserApi.DAL\bin\Debug\net5.0\UserApi.DAL.deps.json
+C:\Users\gnatroshvili\Desktop\tbc task\userApi new\UserAPI\UserApi.DAL\bin\Debug\net5.0\UserApi.DAL.dll
+C:\Users\gnatroshvili\Desktop\tbc task\userApi new\UserAPI\UserApi.DAL\bin\Debug\net5.0\ref\UserApi.DAL.dll
+C:\Users\gnatroshvili\Desktop\tbc task\userApi new\UserAPI\UserApi.DAL\bin\Debug\net5.0\UserApi.DAL.pdb
+C:\Users\gnatroshvili\Desktop\tbc task\userApi new\UserAPI\UserApi.DAL\obj\Debug\net5.0\UserApi.DAL.csproj.AssemblyReference.cache
+C:\Users\gnatroshvili\Desktop\tbc task\userApi new\UserAPI\UserApi.DAL\obj\Debug\net5.0\UserApi.DAL.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\gnatroshvili\Desktop\tbc task\userApi new\UserAPI\UserApi.DAL\obj\Debug\net5.0\UserApi.DAL.AssemblyInfoInputs.cache
+C:\Users\gnatroshvili\Desktop\tbc task\userApi new\UserAPI\UserApi.DAL\obj\Debug\net5.0\UserApi.DAL.AssemblyInfo.cs
+C:\Users\gnatroshvili\Desktop\tbc task\userApi new\UserAPI\UserApi.DAL\obj\Debug\net5.0\UserApi.DAL.csproj.CoreCompileInputs.cache
+C:\Users\gnatroshvili\Desktop\tbc task\userApi new\UserAPI\UserApi.DAL\obj\Debug\net5.0\UserApi.DAL.dll
+C:\Users\gnatroshvili\Desktop\tbc task\userApi new\UserAPI\UserApi.DAL\obj\Debug\net5.0\ref\UserApi.DAL.dll
+C:\Users\gnatroshvili\Desktop\tbc task\userApi new\UserAPI\UserApi.DAL\obj\Debug\net5.0\UserApi.DAL.pdb

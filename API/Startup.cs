@@ -12,6 +12,11 @@ using Microsoft.EntityFrameworkCore;
 using UserApi.DAL.DataContext;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Http;
+using UserAPI.BLL.Helpers;
+using UserAPI.BLL.IRepository;
+using UserAPI.BLL.Repository;
+using UserAPI.BLL.IMapper;
+using UserAPI.BLL.Mapper;
 
 namespace API
 {
@@ -40,15 +45,20 @@ namespace API
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "API", Version = "v1" });
             });
 
-            services.Configure<CookiePolicyOptions>(options =>
-            {
-                // This lambda determines whether user consent for non-essential cookies is needed for a given request.
-                options.CheckConsentNeeded = context => true;
-                options.MinimumSameSitePolicy = SameSiteMode.None;
-            });
+            //services.Configure<CookiePolicyOptions>(options =>
+            //{
+            //    // This lambda determines whether user consent for non-essential cookies is needed for a given request.
+            //    options.CheckConsentNeeded = context => true;
+            //    options.MinimumSameSitePolicy = SameSiteMode.None;
+            //});
 
-            services.AddSession();
+            //services.AddSession();
             services.AddHttpContextAccessor();
+            services.AddScoped<DbContext, AppDbContext>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<IPersonRepository, PersonRepository>();
+            services.AddScoped<IPersonMapper, PersonMapper>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -61,7 +71,6 @@ namespace API
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "API v1"));
             }
 
-            //app.UseHttpsRedirection();
            
 
             app.UseHttpsRedirection();
@@ -72,9 +81,9 @@ namespace API
 
             app.UseStaticFiles();
 
-            app.UseSession();
+           // app.UseSession();
 
-            app.UseCookiePolicy();
+           // app.UseCookiePolicy();
 
 
             app.UseEndpoints(endpoints =>

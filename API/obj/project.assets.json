@@ -1594,6 +1594,20 @@
           "lib/netstandard1.3/System.Xml.XmlSerializer.dll": {}
         }
       },
+      "UserAPI.BLL/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v5.0",
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore": "5.0.8",
+          "UserApi.DAL": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/UserAPI.BLL.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/UserAPI.BLL.dll": {}
+        }
+      },
       "UserApi.DAL/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v5.0",
@@ -5940,6 +5954,11 @@
         "system.xml.xmlserializer.nuspec"
       ]
     },
+    "UserAPI.BLL/1.0.0": {
+      "type": "project",
+      "path": "../UserAPI.BLL/UserAPI.BLL.csproj",
+      "msbuildProject": "../UserAPI.BLL/UserAPI.BLL.csproj"
+    },
     "UserApi.DAL/1.0.0": {
       "type": "project",
       "path": "../UserApi.DAL/UserApi.DAL.csproj",
@@ -5952,27 +5971,28 @@
       "Microsoft.EntityFrameworkCore.SqlServer >= 5.0.8",
       "Microsoft.EntityFrameworkCore.Tools >= 5.0.8",
       "Swashbuckle.AspNetCore >= 5.6.3",
+      "UserAPI.BLL >= 1.0.0",
       "UserApi.DAL >= 1.0.0"
     ]
   },
   "packageFolders": {
-    "C:\\Users\\bombo\\.nuget\\packages\\": {},
+    "C:\\Users\\gnatroshvili\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\bombo\\OneDrive\\Desktop\\tbc task\\angular proj\\ECommerceApp-c09eaeb4fab22de6f7115cbc15c53adc228b00ee\\API\\API.csproj",
+      "projectUniqueName": "C:\\Users\\gnatroshvili\\Desktop\\tbc task\\userApi new\\UserAPI\\API\\API.csproj",
       "projectName": "API",
-      "projectPath": "C:\\Users\\bombo\\OneDrive\\Desktop\\tbc task\\angular proj\\ECommerceApp-c09eaeb4fab22de6f7115cbc15c53adc228b00ee\\API\\API.csproj",
-      "packagesPath": "C:\\Users\\bombo\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\bombo\\OneDrive\\Desktop\\tbc task\\angular proj\\ECommerceApp-c09eaeb4fab22de6f7115cbc15c53adc228b00ee\\API\\obj\\",
+      "projectPath": "C:\\Users\\gnatroshvili\\Desktop\\tbc task\\userApi new\\UserAPI\\API\\API.csproj",
+      "packagesPath": "C:\\Users\\gnatroshvili\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\gnatroshvili\\Desktop\\tbc task\\userApi new\\UserAPI\\API\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\bombo\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\gnatroshvili\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -5986,8 +6006,11 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "projectReferences": {
-            "C:\\Users\\bombo\\OneDrive\\Desktop\\tbc task\\angular proj\\ECommerceApp-c09eaeb4fab22de6f7115cbc15c53adc228b00ee\\UserApi.DAL\\UserApi.DAL.csproj": {
-              "projectPath": "C:\\Users\\bombo\\OneDrive\\Desktop\\tbc task\\angular proj\\ECommerceApp-c09eaeb4fab22de6f7115cbc15c53adc228b00ee\\UserApi.DAL\\UserApi.DAL.csproj"
+            "C:\\Users\\gnatroshvili\\Desktop\\tbc task\\userApi new\\UserAPI\\UserAPI.BLL\\UserAPI.BLL.csproj": {
+              "projectPath": "C:\\Users\\gnatroshvili\\Desktop\\tbc task\\userApi new\\UserAPI\\UserAPI.BLL\\UserAPI.BLL.csproj"
+            },
+            "C:\\Users\\gnatroshvili\\Desktop\\tbc task\\userApi new\\UserAPI\\UserApi.DAL\\UserApi.DAL.csproj": {
+              "projectPath": "C:\\Users\\gnatroshvili\\Desktop\\tbc task\\userApi new\\UserAPI\\UserApi.DAL\\UserApi.DAL.csproj"
             }
           }
         }
@@ -6041,7 +6064,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.205\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.302\\RuntimeIdentifierGraph.json"
       }
     }
   }

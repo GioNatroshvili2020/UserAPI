@@ -8,6 +8,7 @@ using UserApi.DAL.DataContext;
 using UserApi.DAL.Entities;
 using UserAPI.BLL.DTOs;
 using UserAPI.BLL.Enum;
+using UserAPI.BLL.Filter;
 using UserAPI.BLL.Helpers;
 using UserAPI.BLL.IRepository;
 using UserAPI.BLL.Model;
@@ -25,22 +26,37 @@ namespace UserAPI.BLL.Repository
             _unitOfWork = unitOfWork;
         }
 
-        public  async Task<Person> GetPerson(int ID)
+        public  async Task<Person> GetPersonAsync(int ID)
         {
             return  await _unitOfWork.Query<Person>().Where(n=>n.DateDeleted==null).Include(n => n.City).FirstOrDefaultAsync(n => n.ID == ID);
         }
 
 
-        public async Task<List<PersonModel>> GetAllPersons()
+        public async Task<List<PersonModel>> GetPersonListAsync(PersonFilter personFiler)
         {
+           
 
-            
-            var persons = await (from p in _unitOfWork.Query<Person>()                                
-                                 where p.DateDeleted == null                                
-                                 orderby p.DateCreated descending
-                                 select p).Include(n => n.City).ToListAsync();
+            List<Person> persons = new List<Person>();
+
+            if (personFiler.FullSearch != null)
+            {
+                persons = await FullSearch(personFiler);
+            }
+            else if (personFiler.QuickSearch != null)
+            {
+                persons =await QuickSearch(personFiler);
+            }
+            else
+            {
+                 persons = await (from p in _unitOfWork.Query<Person>()
+                                     where p.DateDeleted == null
+                                     orderby p.DateCreated descending
+                                     select p).Include(n => n.City).ToListAsync();
+            }
+           
 
             var personModelList = new List<PersonModel>();
+
             foreach(var p in persons)
             {
                 var newPerson = new PersonModel();
@@ -63,7 +79,7 @@ namespace UserAPI.BLL.Repository
             return personModelList;
          
         }
-        public async Task<Person> AddPerson(AddPersonDto model)
+        public async Task<Person> AddPersonAsync(AddPersonDto model)
         {
             var newPerson = new Person();
             newPerson.BirthDate = model.BirthDate;
@@ -76,17 +92,20 @@ namespace UserAPI.BLL.Repository
             newPerson.ImageLink = model.ImageLink;
             newPerson.IdNumber = model.IdNumber;
             newPerson.DateCreated = DateTime.Now;
-
-            foreach (var p in model.ConnectedPeople)
+            if (model.ConnectedPeople != null && model.ConnectedPeople.Count>0)
             {
-                
-                var personToAdd = await GetPerson(p);
+                foreach (var p in model.ConnectedPeople)
+                {
 
-                if (personToAdd == null)
-                    throw new Exception("Connected User Not Found");
+                    var personToAdd = await GetPersonAsync(p);
 
-                newPerson.ConnectedPeople.Add(personToAdd);
+                    if (personToAdd == null)
+                        throw new Exception("Connected User Not Found");
+
+                    newPerson.ConnectedPeople.Add(personToAdd);
+                }
             }
+           
             _unitOfWork.Add(newPerson);
             await _unitOfWork.CommitAsync();
             return newPerson;
@@ -95,7 +114,7 @@ namespace UserAPI.BLL.Repository
 
 
 
-        public async Task<Person> UpdatePerson(UpdatePersonDto model)
+        public async Task<Person> UpdatePersonAsync(UpdatePersonDto model)
         {
             var existingPerson = _unitOfWork.Query<Person>().FirstOrDefault(n => n.ID == model.ID);
             if (existingPerson != null)
@@ -116,14 +135,14 @@ namespace UserAPI.BLL.Repository
             return null;
         }
 
-        public async Task<OperationResult> DeletePerson(int ID)
+        public async Task<OperationResult> DeletePersonAsync(int ID)
         {
             var result = new OperationResult(true);
             var person = _unitOfWork.Query<Person>().FirstOrDefault(n => n.ID == ID);
 
             if (person==null)
             {
-                result.SetError("პიროვნება ტრაკშია");
+                result.SetError("Person Does Not Exist");
                 return result;
             }
             person.DateDeleted = DateTime.Now;
@@ -154,6 +173,33 @@ namespace UserAPI.BLL.Repository
                                              IdNumber=p.IdNumber,                                             
                                          }).AsNoTracking().ToListAsync();
             return connectedPeople;
+        }
+
+
+        private async Task<List<Person>> QuickSearch(PersonFilter personFiler)
+        {
+            var people = await (from p in _unitOfWork.Query<Person>()
+                             where p.DateDeleted == null
+                             &&
+                             (EF.Functions.Like(p.Firstname, personFiler.QuickSearch)
+                             || EF.Functions.Like(p.Lastname, personFiler.QuickSearch)
+                             || EF.Functions.Like(p.IdNumber, personFiler.QuickSearch)
+                             )
+                             orderby p.DateCreated descending
+                             select p).Include(n => n.City).ToListAsync();
+            return people;
+        }
+
+        private async Task<List<Person>> FullSearch(PersonFilter personFilter)
+        {
+            var stringProperties = typeof(Person).GetProperties().Where(prop =>
+            prop.PropertyType == personFilter.FullSearch.GetType());
+           
+            var people = await _unitOfWork.Query<Person>().Where(p =>
+               stringProperties.Any(prop =>
+               EF.Functions.Like(prop.GetValue(p, null).ToString(), personFilter.QuickSearch))).ToListAsync();
+
+            return people;
         }
     }
 }
