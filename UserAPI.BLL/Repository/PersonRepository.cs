@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using UserApi.DAL.DataContext;
@@ -17,12 +18,10 @@ namespace UserAPI.BLL.Repository
 {
     public class PersonRepository : IPersonRepository
     {
-        private readonly AppDbContext _context;
         private readonly IUnitOfWork _unitOfWork;
 
-        public PersonRepository(AppDbContext context, IUnitOfWork unitOfWork)
+        public PersonRepository(IUnitOfWork unitOfWork)
         {
-            _context = context;
             _unitOfWork = unitOfWork;
         }
 
@@ -54,6 +53,8 @@ namespace UserAPI.BLL.Repository
                                      select p).Include(n => n.City).ToListAsync();
             }
            
+             persons = persons.Skip(personFiler.PageSize * (personFiler.PageNumber - 1))
+                    .Take(personFiler.PageSize).ToList();
 
             var personModelList = new List<PersonModel>();
 
@@ -86,14 +87,15 @@ namespace UserAPI.BLL.Repository
             newPerson.CityId = model.CityId==0 ? null: model.CityId;
             newPerson.Firstname = model.Firstname;
             newPerson.Lastname = model.Lastname;
-            newPerson.Gender = model.Gender;
+            newPerson.Gender = (int)model.Gender;
             newPerson.PhoneNumber = model.PhoneNumber;
-            newPerson.PhoneNumberType = model.PhoneNumberType;
+            newPerson.PhoneNumberType = (int)model.PhoneNumberType;
             newPerson.ImageLink = model.ImageLink;
             newPerson.IdNumber = model.IdNumber;
             newPerson.DateCreated = DateTime.Now;
             if (model.ConnectedPeople != null && model.ConnectedPeople.Count>0)
             {
+                newPerson.ConnectedPeople = new List<Person>();
                 foreach (var p in model.ConnectedPeople)
                 {
 
@@ -122,15 +124,16 @@ namespace UserAPI.BLL.Repository
                 existingPerson.Firstname = model.Firstname;
                 existingPerson.Lastname = model.Lastname;
                 existingPerson.PhoneNumber = model.PhoneNumber;
-                existingPerson.PhoneNumberType = model.PhoneNumberType;
-                existingPerson.CityId = model.CityId;
-                existingPerson.Gender = model.Gender;
+                existingPerson.PhoneNumberType = (int)model.PhoneNumberType;
+                existingPerson.CityId = model.CityId == 0 ? null : model.CityId;
+                existingPerson.Gender = (int)model.Gender;
                 existingPerson.BirthDate = model.BirthDate;
 
                 existingPerson.DateChanged = DateTime.Now;
 
                 await _unitOfWork.CommitAsync();
-
+                
+                return existingPerson;
             }
             return null;
         }
@@ -192,14 +195,31 @@ namespace UserAPI.BLL.Repository
 
         private async Task<List<Person>> FullSearch(PersonFilter personFilter)
         {
-            var stringProperties = typeof(Person).GetProperties().Where(prop =>
-            prop.PropertyType == personFilter.FullSearch.GetType());
-           
-            var people = await _unitOfWork.Query<Person>().Where(p =>
-               stringProperties.Any(prop =>
-               EF.Functions.Like(prop.GetValue(p, null).ToString(), $"%{personFilter.FullSearch}%"))).ToListAsync();
+            PropertyInfo[] properties = typeof(Person).GetProperties();
+            var allRecords = await (from p in _unitOfWork.Query<Person>()
+                                    where p.DateDeleted == null
+                                    orderby p.DateCreated descending
+                                    select p).Include(n => n.City).ToListAsync();
+            var FilteredList = new List<Person>();
+            foreach(var record in allRecords)
+            {
+                if (record.City!=null && record.City.Name.ToLower().Contains(personFilter.FullSearch.ToLower()))
+                {
+                    FilteredList.Add(record);
+                    continue;
+                }
 
-            return people;
+                foreach (PropertyInfo property in properties)
+                {
+                    var val = property.GetValue(record);
+                    if(val != null&& val.ToString().ToLower().Contains(personFilter.FullSearch.ToLower()))
+                    {
+                        FilteredList.Add(record);
+                        break;
+                    }
+                }
+            }          
+            return FilteredList;
         }
     }
 }

@@ -8,45 +8,43 @@ using UserAPI.BLL.DTOs;
 using UserAPI.BLL.Filter;
 using UserAPI.BLL.IMapper;
 using UserAPI.BLL.IRepository;
+using UserAPI.BLL.Model;
 
 namespace API.Controllers
 {
     [Route("api/[Controller]/[action]")]
-    public class UserController:ControllerBase
+    public class CityController : ControllerBase
     {
-        private readonly IPersonRepository _repository;
-        private readonly IPersonMapper _mapper;
-        public UserController(IPersonRepository repository,IPersonMapper mapper)
+        private readonly ICityRepository _repository;
+
+        public CityController(ICityRepository repository)
         {
             _repository = repository;
-            _mapper = mapper;
         }
 
-
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetPerson(int id)
+        public async Task<IActionResult> GetCity(int id)
         {
-            var person = await  _repository.GetPersonAsync(id);
+            var city = await _repository.GetCityAsync(id);
 
-            if (person != null)
-                return Ok(_mapper.GetPersonReadDto(person));
+            if (city != null)
+                return Ok(city);
             else
                 return NotFound();
         }
 
-
         [HttpGet]
-        public async Task<IActionResult> GetAll([FromQuery] PersonFilter personFilter)
+        public async Task<IActionResult> GetAll()
         {
-            var people = await _repository.GetPersonListAsync(personFilter);
+            var cities = await _repository.GetCityListAsync();
 
-            return Ok(_mapper.GetPersonReadDtoList(people));
+            return Ok(cities);
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreatePerson(AddPersonDto person)
+        public async Task<IActionResult> CreateCity(CreateCityDto city)
         {
-            if (person == null)
+            if (city == null)
                 return BadRequest("Person Object is null");
 
             if (!ModelState.IsValid)
@@ -56,9 +54,9 @@ namespace API.Controllers
             }
             try
             {
-                var result = await _repository.AddPersonAsync(person);
+                var result = await _repository.AddCityAsync(city);
 
-                return Ok(_mapper.GetPersonReadDto(result));
+                return Ok(result);
             }
             catch (Exception ex)
             {
@@ -67,10 +65,10 @@ namespace API.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> UpdatePerson(UpdatePersonDto person)
+        public async Task<IActionResult> UpdateCity(CityModel city)
         {
 
-            if(person==null)
+            if (city == null)
                 return BadRequest("Person Object is null");
             if (!ModelState.IsValid)
             {
@@ -79,11 +77,11 @@ namespace API.Controllers
             }
             try
             {
-                var updatedPerson = await _repository.UpdatePersonAsync(person);
+                var updatedPerson = await _repository.UpdateCityAsync(city);
 
-                return Ok(_mapper.GetPersonReadDto(updatedPerson));
+                return Ok(updatedPerson);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
@@ -91,13 +89,14 @@ namespace API.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeletePerson(int id)
+        public async Task<IActionResult> DeleteCity(int id)
         {
-            var res = await _repository.DeletePersonAsync(id);
+            var res = await _repository.DeleteCityAsync(id);
             if (res.Result == false)
                 return BadRequest(res.Message);
             else
                 return Ok(res.Message);
         }
+
     }
 }

@@ -24,7 +24,7 @@ namespace UserAPI.BLL.DTOs
 
         public string Lastname { get; set; }
 
-        public int Gender { get; set; }
+        public GenderEnum Gender { get; set; }
 
         [Required]
         [StringLength(11)]
@@ -43,7 +43,7 @@ namespace UserAPI.BLL.DTOs
         [MinLength(4)]
         [MaxLength(50)]
         public string PhoneNumber { get; set; }
-        public int PhoneNumberType { get; set; }
+        public PhoneNumTypeEnum  PhoneNumberType { get; set; }
 
         public string ImageLink { get; set; }
 

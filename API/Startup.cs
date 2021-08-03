@@ -57,6 +57,8 @@ namespace API
             services.AddScoped<DbContext, AppDbContext>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IPersonRepository, PersonRepository>();
+            services.AddScoped<ICityRepository, CityRepository>();
+
             services.AddScoped<IPersonMapper, PersonMapper>();
 
         }
