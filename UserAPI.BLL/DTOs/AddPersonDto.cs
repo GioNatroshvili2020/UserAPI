@@ -39,7 +39,6 @@ namespace UserAPI.BLL.DTOs
 
         public int CityId { get; set; }
 
-        public string CityName { get; set; }
 
         [MinLength(4)]
         [MaxLength(50)]

@@ -54,7 +54,7 @@ namespace API.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.InnerException);
+                return BadRequest(ex.Message);
             }
         }
 
@@ -65,7 +65,7 @@ namespace API.Controllers
             {
                 var updatedPerson = await _repository.UpdatePersonAsync(person);
 
-                return Ok(updatedPerson);
+                return Ok(_mapper.GetPersonReadDto(updatedPerson));
             }
             catch(Exception ex)
             {

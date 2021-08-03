@@ -63,8 +63,8 @@ namespace UserAPI.BLL.Repository
 
                 newPerson.ID = p.ID;
                 newPerson.BirthDate = p.BirthDate;
-                newPerson.CityId = p.CityId;
-                newPerson.CityName = p.City.Name;
+                newPerson.CityId = p.CityId != null ? (int)p.CityId : 0;
+                newPerson.CityName = p.City!=null?p.City.Name:null;
                 newPerson.Firstname = p.Firstname;
                 newPerson.Lastname = p.Lastname;
                 newPerson.Gender = (GenderEnum)p.Gender;
@@ -83,7 +83,7 @@ namespace UserAPI.BLL.Repository
         {
             var newPerson = new Person();
             newPerson.BirthDate = model.BirthDate;
-            newPerson.CityId = model.CityId;
+            newPerson.CityId = model.CityId==0 ? null: model.CityId;
             newPerson.Firstname = model.Firstname;
             newPerson.Lastname = model.Lastname;
             newPerson.Gender = model.Gender;

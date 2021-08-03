@@ -24,9 +24,11 @@ namespace UserAPI.BLL.Mapper
             personDto.Lastname = person.Lastname;
             personDto.PhoneNumber = person.PhoneNumber;
             personDto.Gender = ((GenderEnum)person.Gender).ToString();
-            personDto.PhoneNumberType = ((PhoneNumTypeEnum)person.PhoneNumberType).ToString();
-            personDto.CityId = person.CityId;
-            personDto.ConnectedPeople = GetConnectedPeople(person.ConnectedPeople);
+            personDto.PhoneNumberType = ((PhoneNumTypeEnum)person.PhoneNumberType).ToString();           
+            personDto.CityId = person.CityId != null ? (int)person.CityId : 0;
+
+            if(person.ConnectedPeople!=null && person.ConnectedPeople.Count>0)
+             personDto.ConnectedPeople = GetConnectedPeople(person.ConnectedPeople);
             
             return personDto;
 
@@ -94,9 +96,9 @@ namespace UserAPI.BLL.Mapper
                 var newPerson = new PersonReadDto();
 
                 newPerson.ID = p.ID;
-                newPerson.BirthDate = p.BirthDate;
-                newPerson.CityId = p.CityId;
-                newPerson.CityName = p.City.Name;
+                newPerson.BirthDate = p.BirthDate;                
+                newPerson.CityId = p.CityId!=null?(int)p.CityId:0;
+                newPerson.CityName = p.City != null ? p.City.Name : "";
                 newPerson.Firstname = p.Firstname;
                 newPerson.Lastname = p.Lastname;
                 newPerson.Gender = ((GenderEnum)p.Gender).ToString();
