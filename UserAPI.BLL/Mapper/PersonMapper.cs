@@ -23,12 +23,14 @@ namespace UserAPI.BLL.Mapper
             personDto.Firstname = person.Firstname;
             personDto.Lastname = person.Lastname;
             personDto.PhoneNumber = person.PhoneNumber;
+            personDto.PhoneNumberType = ((PhoneNumTypeEnum)person.PhoneNumberType).ToString();    
             personDto.Gender = ((GenderEnum)person.Gender).ToString();
-            personDto.PhoneNumberType = ((PhoneNumTypeEnum)person.PhoneNumberType).ToString();           
-            personDto.CityId = person.CityId != null ? (int)person.CityId : 0;
-
-            if(person.ConnectedPeople!=null && person.ConnectedPeople.Count>0)
-             personDto.ConnectedPeople = GetConnectedPeople(person.ConnectedPeople);
+            personDto.CityId = person.CityId != null ? (int)person.CityId : 0;           
+            personDto.BirthDate = person.BirthDate;
+            personDto.IdNumber = person.IdNumber;
+            personDto.ImageLink = person.ImageLink;
+            if (person.ConnectedPeople!=null && person.ConnectedPeople.Count>0)
+                personDto.ConnectedPeople = GetConnectedPeople(person.ConnectedPeople);
             
             return personDto;
 
@@ -42,10 +44,14 @@ namespace UserAPI.BLL.Mapper
             personDto.Firstname = person.Firstname;
             personDto.Lastname = person.Lastname;
             personDto.PhoneNumber = person.PhoneNumber;
-            personDto.Gender = person.Gender.ToString();
             personDto.PhoneNumberType = person.PhoneNumberType.ToString();
-            personDto.CityId = person.CityId;
-            personDto.ConnectedPeople = GetConnectedPeople(person.ConnectedPeople);
+            personDto.Gender = person.Gender.ToString();
+            personDto.CityId = person.CityId ;
+            personDto.BirthDate = person.BirthDate;
+            personDto.IdNumber = person.IdNumber;
+            personDto.ImageLink = person.ImageLink;
+            if (person.ConnectedPeople != null && person.ConnectedPeople.Count > 0)
+                personDto.ConnectedPeople = GetConnectedPeople(person.ConnectedPeople);
 
             return personDto;
         }

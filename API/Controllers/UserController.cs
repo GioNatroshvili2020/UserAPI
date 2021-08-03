@@ -50,7 +50,7 @@ namespace API.Controllers
             {
                 var result = await _repository.AddPersonAsync(person);
 
-                return Ok(result);
+                return Ok(_mapper.GetPersonReadDto(result));
             }
             catch (Exception ex)
             {

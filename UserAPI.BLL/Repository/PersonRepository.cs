@@ -176,14 +176,14 @@ namespace UserAPI.BLL.Repository
         }
 
 
-        private async Task<List<Person>> QuickSearch(PersonFilter personFiler)
+        private async Task<List<Person>> QuickSearch(PersonFilter personFilter)
         {
             var people = await (from p in _unitOfWork.Query<Person>()
                              where p.DateDeleted == null
                              &&
-                             (EF.Functions.Like(p.Firstname, personFiler.QuickSearch)
-                             || EF.Functions.Like(p.Lastname, personFiler.QuickSearch)
-                             || EF.Functions.Like(p.IdNumber, personFiler.QuickSearch)
+                             (EF.Functions.Like(p.Firstname,  $"%{personFilter.QuickSearch}%")
+                             || EF.Functions.Like(p.Lastname, $"%{personFilter.QuickSearch}%")
+                             || EF.Functions.Like(p.IdNumber, $"%{personFilter.QuickSearch}%")
                              )
                              orderby p.DateCreated descending
                              select p).Include(n => n.City).ToListAsync();
@@ -197,7 +197,7 @@ namespace UserAPI.BLL.Repository
            
             var people = await _unitOfWork.Query<Person>().Where(p =>
                stringProperties.Any(prop =>
-               EF.Functions.Like(prop.GetValue(p, null).ToString(), personFilter.QuickSearch))).ToListAsync();
+               EF.Functions.Like(prop.GetValue(p, null).ToString(), $"%{personFilter.FullSearch}%"))).ToListAsync();
 
             return people;
         }
