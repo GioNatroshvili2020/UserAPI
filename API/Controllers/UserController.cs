@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using API.ActionFilters;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,11 +13,11 @@ using UserAPI.BLL.IRepository;
 namespace API.Controllers
 {
     [Route("api/[Controller]/[action]")]
-    public class UserController:ControllerBase
+    public class UserController : ControllerBase
     {
         private readonly IPersonRepository _repository;
         private readonly IPersonMapper _mapper;
-        public UserController(IPersonRepository repository,IPersonMapper mapper)
+        public UserController(IPersonRepository repository, IPersonMapper mapper)
         {
             _repository = repository;
             _mapper = mapper;
@@ -26,7 +27,7 @@ namespace API.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetPerson(int id)
         {
-            var person = await  _repository.GetPersonAsync(id);
+            var person = await _repository.GetPersonAsync(id);
 
             if (person != null)
                 return Ok(_mapper.GetPersonReadDto(person));
@@ -44,49 +45,25 @@ namespace API.Controllers
         }
 
         [HttpPost]
+        [ServiceFilter(typeof(ValidationFilterAttribute))]
         public async Task<IActionResult> CreatePerson(AddPersonDto person)
         {
-            if (person == null)
-                return BadRequest("Person Object is null");
+          
+            var result = await _repository.AddPersonAsync(person);
 
-            if (!ModelState.IsValid)
-            {
-                var Errors = ModelState.Where(x => x.Value.Errors.Any()).Select(x => new { x.Key, x.Value.Errors }).ToList();
-                return BadRequest(Errors[0].Errors[0].ErrorMessage);
-            }
-            try
-            {
-                var result = await _repository.AddPersonAsync(person);
+            return Ok(_mapper.GetPersonReadDto(result));
 
-                return Ok(_mapper.GetPersonReadDto(result));
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
         }
 
         [HttpPut]
+        [ServiceFilter(typeof(ValidationFilterAttribute))]
         public async Task<IActionResult> UpdatePerson(UpdatePersonDto person)
         {
+          
+            var updatedPerson = await _repository.UpdatePersonAsync(person);
 
-            if(person==null)
-                return BadRequest("Person Object is null");
-            if (!ModelState.IsValid)
-            {
-                var Errors = ModelState.Where(x => x.Value.Errors.Any()).Select(x => new { x.Key, x.Value.Errors }).ToList();
-                return BadRequest(Errors[0].Errors[0].ErrorMessage);
-            }
-            try
-            {
-                var updatedPerson = await _repository.UpdatePersonAsync(person);
+            return Ok(_mapper.GetPersonReadDto(updatedPerson));
 
-                return Ok(_mapper.GetPersonReadDto(updatedPerson));
-            }
-            catch(Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
 
         }
 

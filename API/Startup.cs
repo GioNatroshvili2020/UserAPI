@@ -17,6 +17,12 @@ using UserAPI.BLL.IRepository;
 using UserAPI.BLL.Repository;
 using UserAPI.BLL.IMapper;
 using UserAPI.BLL.Mapper;
+using UserAPI.LoggerService;
+using System.IO;
+using NLog;
+using System;
+using API.Extensions;
+using API.ActionFilters;
 
 namespace API
 {
@@ -26,6 +32,7 @@ namespace API
 
         public Startup(IConfiguration configuration)
         {
+            LogManager.LoadConfiguration(String.Concat(Directory.GetCurrentDirectory(), "/nlog.config"));
             _configuration = configuration;
         }
 
@@ -34,25 +41,22 @@ namespace API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
+
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
+
             services.AddOptions();
+            services.AddSingleton<ILoggerManager, LoggerManager>();
+            services.AddScoped<ValidationFilterAttribute>();
 
             services.AddControllers();
             services.AddDbContext<AppDbContext>(x => x.UseSqlServer(_configuration.GetConnectionString("DBConnection")));
-            services.AddSwaggerGen(c =>
+            
+                services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "API", Version = "v1" });
             });
 
-            //services.Configure<CookiePolicyOptions>(options =>
-            //{
-            //    // This lambda determines whether user consent for non-essential cookies is needed for a given request.
-            //    options.CheckConsentNeeded = context => true;
-            //    options.MinimumSameSitePolicy = SameSiteMode.None;
-            //});
-
-            //services.AddSession();
             services.AddHttpContextAccessor();
             services.AddScoped<DbContext, AppDbContext>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
@@ -64,7 +68,7 @@ namespace API
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerManager logger)
         {
             if (env.IsDevelopment())
             {
@@ -73,7 +77,8 @@ namespace API
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "API v1"));
             }
 
-           
+
+            app.ConfigureCustomExceptionMiddleware();
 
             app.UseHttpsRedirection();
 
@@ -82,17 +87,14 @@ namespace API
             app.UseAuthorization();
 
             app.UseStaticFiles();
-
-           // app.UseSession();
-
-           // app.UseCookiePolicy();
-
-
+   
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
             });
         }
+
        
+
     }
 }

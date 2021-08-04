@@ -9,6 +9,7 @@ using UserAPI.BLL.Filter;
 using UserAPI.BLL.IMapper;
 using UserAPI.BLL.IRepository;
 using UserAPI.BLL.Model;
+using UserAPI.LoggerService;
 
 namespace API.Controllers
 {
@@ -16,17 +17,20 @@ namespace API.Controllers
     public class CityController : ControllerBase
     {
         private readonly ICityRepository _repository;
+        private ILoggerManager _logger;
 
-        public CityController(ICityRepository repository)
+        public CityController(ICityRepository repository, ILoggerManager logger)
         {
             _repository = repository;
+            _logger = logger;
+
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetCity(int id)
         {
             var city = await _repository.GetCityAsync(id);
-
+            _logger.LogInfo("MY PP HARD");
             if (city != null)
                 return Ok(city);
             else

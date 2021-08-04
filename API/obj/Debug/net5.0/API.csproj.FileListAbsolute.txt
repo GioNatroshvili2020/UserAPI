@@ -189,3 +189,8 @@ C:\Users\gnatroshvili\Desktop\tbc task\userApi new\UserAPI\API\bin\Debug\net5.0\
 C:\Users\gnatroshvili\Desktop\tbc task\userApi new\UserAPI\API\bin\Debug\net5.0\UserAPI.BLL.pdb
 C:\Users\bombo\OneDrive\Desktop\tbc task\angular proj\ECommerceApp-c09eaeb4fab22de6f7115cbc15c53adc228b00ee\API\bin\Debug\net5.0\UserAPI.BLL.dll
 C:\Users\bombo\OneDrive\Desktop\tbc task\angular proj\ECommerceApp-c09eaeb4fab22de6f7115cbc15c53adc228b00ee\API\bin\Debug\net5.0\UserAPI.BLL.pdb
+C:\Users\bombo\OneDrive\Desktop\tbc task\angular proj\ECommerceApp-c09eaeb4fab22de6f7115cbc15c53adc228b00ee\API\bin\Debug\net5.0\nlog.config
+C:\Users\bombo\OneDrive\Desktop\tbc task\angular proj\ECommerceApp-c09eaeb4fab22de6f7115cbc15c53adc228b00ee\API\bin\Debug\net5.0\NLog.dll
+C:\Users\bombo\OneDrive\Desktop\tbc task\angular proj\ECommerceApp-c09eaeb4fab22de6f7115cbc15c53adc228b00ee\API\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+C:\Users\bombo\OneDrive\Desktop\tbc task\angular proj\ECommerceApp-c09eaeb4fab22de6f7115cbc15c53adc228b00ee\API\bin\Debug\net5.0\UserAPI.LoggerService.dll
+C:\Users\bombo\OneDrive\Desktop\tbc task\angular proj\ECommerceApp-c09eaeb4fab22de6f7115cbc15c53adc228b00ee\API\bin\Debug\net5.0\UserAPI.LoggerService.pdb

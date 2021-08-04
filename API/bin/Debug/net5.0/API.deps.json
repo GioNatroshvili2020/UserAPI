@@ -38,6 +38,7 @@
           "Microsoft.EntityFrameworkCore.Tools": "5.0.8",
           "Swashbuckle.AspNetCore": "5.6.3",
           "UserAPI.BLL": "1.0.0",
+          "UserAPI.LoggerService": "1.0.0",
           "UserApi.DAL": "1.0.0",
           "Microsoft.AspNetCore.Antiforgery": "5.0.0.0",
           "Microsoft.AspNetCore.Authentication.Abstractions": "5.0.0.0",
@@ -703,6 +704,33 @@
         },
         "compile": {
           "lib/netstandard1.3/Newtonsoft.Json.dll": {}
+        }
+      },
+      "NLog/4.7.10": {
+        "runtime": {
+          "lib/netstandard2.0/NLog.dll": {
+            "assemblyVersion": "4.0.0.0",
+            "fileVersion": "4.7.10.13013"
+          }
+        },
+        "compile": {
+          "lib/netstandard2.0/NLog.dll": {}
+        }
+      },
+      "NLog.Extensions.Logging/1.7.3": {
+        "dependencies": {
+          "Microsoft.Extensions.Configuration.Abstractions": "5.0.0",
+          "Microsoft.Extensions.Logging": "5.0.0",
+          "NLog": "4.7.10"
+        },
+        "runtime": {
+          "lib/net5.0/NLog.Extensions.Logging.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.7.3.1580"
+          }
+        },
+        "compile": {
+          "lib/net5.0/NLog.Extensions.Logging.dll": {}
         }
       },
       "runtime.native.System/4.3.0": {
@@ -1405,6 +1433,17 @@
         },
         "compile": {
           "UserApi.DAL.dll": {}
+        }
+      },
+      "UserAPI.LoggerService/1.0.0": {
+        "dependencies": {
+          "NLog.Extensions.Logging": "1.7.3"
+        },
+        "runtime": {
+          "UserAPI.LoggerService.dll": {}
+        },
+        "compile": {
+          "UserAPI.LoggerService.dll": {}
         }
       },
       "Microsoft.AspNetCore.Antiforgery/5.0.0.0": {
@@ -3332,6 +3371,20 @@
       "path": "newtonsoft.json/10.0.1",
       "hashPath": "newtonsoft.json.10.0.1.nupkg.sha512"
     },
+    "NLog/4.7.10": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-rcegW7kYOCjl7wX0SzsqpPBqnJ51JKi1WkYb6QBVX0Wc5IgH19Pv4t/co+T0s06OS0Ne44xgkY/mHg0PdrmJow==",
+      "path": "nlog/4.7.10",
+      "hashPath": "nlog.4.7.10.nupkg.sha512"
+    },
+    "NLog.Extensions.Logging/1.7.3": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-7RvUvGd9Ad37pNedjPHbCUroscLGuChLBo0OBveGp92vIpEHLZm/in+Ydd+c9qpv1XMQQIx7yZv1F5qyy/AxHQ==",
+      "path": "nlog.extensions.logging/1.7.3",
+      "hashPath": "nlog.extensions.logging.1.7.3.nupkg.sha512"
+    },
     "runtime.native.System/4.3.0": {
       "type": "package",
       "serviceable": true,
@@ -3828,6 +3881,11 @@
       "sha512": ""
     },
     "UserApi.DAL/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "UserAPI.LoggerService/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

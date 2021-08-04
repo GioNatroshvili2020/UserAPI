@@ -15,6 +15,7 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\LoggerService\UserAPI.LoggerService.csproj" />
     <ProjectReference Include="..\UserAPI.BLL\UserAPI.BLL.csproj" />
     <ProjectReference Include="..\UserApi.DAL\UserApi.DAL.csproj" />
   </ItemGroup>
