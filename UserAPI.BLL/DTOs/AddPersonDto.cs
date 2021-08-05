@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -6,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UserApi.DAL.Annotations;
 using UserAPI.BLL.Enum;
+using UserAPI.BLL.Model;
 
 namespace UserAPI.BLL.DTOs
 {
@@ -39,7 +41,6 @@ namespace UserAPI.BLL.DTOs
 
         public int CityId { get; set; }
 
-
         [MinLength(4)]
         [MaxLength(50)]
         public string PhoneNumber { get; set; }
@@ -47,7 +48,8 @@ namespace UserAPI.BLL.DTOs
 
         public string ImageLink { get; set; }
 
-        public List<int> ConnectedPeople { get; set; }
 
+
+        public List<AddConnectedPersonDto> ConnectedPeople { get; set; }
     }
 }

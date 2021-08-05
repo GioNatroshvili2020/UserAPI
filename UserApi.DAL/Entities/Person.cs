@@ -48,8 +48,7 @@ namespace UserApi.DAL.Entities
         public int PhoneNumberType { get; set; }
 
         public string ImageLink { get; set; }
-
-        public virtual List<Person> ConnectedPeople { get; set; }
+        public virtual List<ConnectedPerson> ConnectedPeople { get; set; }
 
         public DateTime DateCreated { get; set; }
         public DateTime? DateChanged { get; set; }

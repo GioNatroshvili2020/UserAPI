@@ -14,6 +14,6 @@ namespace UserAPI.BLL.IMapper
         PersonReadDto GetPersonReadDto(Person person);
         PersonReadDto GetPersonReadDto(PersonModel personModel);
         List<PersonReadDto> GetPersonReadDtoList(List<PersonModel> personList);
-
+        public List<ConnectedPersonModel> GetConnectedPeopleModelList(List<ConnectedPerson> people);
     }
 }

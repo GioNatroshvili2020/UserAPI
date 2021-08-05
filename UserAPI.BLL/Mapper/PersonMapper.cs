@@ -29,13 +29,47 @@ namespace UserAPI.BLL.Mapper
             personDto.BirthDate = person.BirthDate;
             personDto.IdNumber = person.IdNumber;
             personDto.ImageLink = person.ImageLink;
-            if (person.ConnectedPeople!=null && person.ConnectedPeople.Count>0)
-                personDto.ConnectedPeople = GetConnectedPeople(person.ConnectedPeople);
+            if (person.ConnectedPeople != null && person.ConnectedPeople.Count > 0)
+                personDto.ConnectedPeople = GetReadConnectedPersonDtos(person.ConnectedPeople);
             
             return personDto;
 
 
         }
+
+        private List<ReadConnectedPersonDto> GetReadConnectedPersonDtos(List<ConnectedPerson> connectedPeople)
+        {
+            var connectedPeopleDtos = new List<ReadConnectedPersonDto>();
+            foreach(var p in connectedPeople)
+            {
+                connectedPeopleDtos.Add(new ReadConnectedPersonDto()
+                {
+                    PersonId = p.ConnectedPersonId,                    
+                    ConnectionType = ((ConnectionTypeEnum)p.ConnectionType).ToString()
+
+                });
+            }
+            return connectedPeopleDtos;
+
+        }
+
+        private List<ReadConnectedPersonDto> GetReadConnectedPersonDtos(List<ConnectedPersonModel> connectedPeople)
+        {
+            var connectedPeopleDtos = new List<ReadConnectedPersonDto>();
+            foreach (var p in connectedPeople)
+            {
+                connectedPeopleDtos.Add(new ReadConnectedPersonDto()
+                {
+                    PersonId = p.PersonId,          
+                    ConnectionType = (p.ConnectionType).ToString()
+
+                });
+            }
+            return connectedPeopleDtos;
+
+        }
+
+
 
         public PersonReadDto GetPersonReadDto(PersonModel person)
         {
@@ -51,7 +85,7 @@ namespace UserAPI.BLL.Mapper
             personDto.IdNumber = person.IdNumber;
             personDto.ImageLink = person.ImageLink;
             if (person.ConnectedPeople != null && person.ConnectedPeople.Count > 0)
-                personDto.ConnectedPeople = GetConnectedPeople(person.ConnectedPeople);
+                personDto.ConnectedPeople = GetReadConnectedPersonDtos(person.ConnectedPeople);
 
             return personDto;
         }
@@ -70,54 +104,19 @@ namespace UserAPI.BLL.Mapper
         }
 
 
-        private List<PersonReadDto> GetConnectedPeople(List<PersonModel> people)
+        public List<ConnectedPersonModel> GetConnectedPeopleModelList(List<ConnectedPerson> people)
         {
-            var connectedPeople = new List<PersonReadDto>();
+            var connectedPeople = new List<ConnectedPersonModel>();
             foreach (var p in people)
             {
-                var newPerson = new PersonReadDto();
+                var newPerson = new ConnectedPersonModel();
 
-                newPerson.ID = p.ID;
-                newPerson.BirthDate = p.BirthDate;
-                newPerson.CityId = p.CityId;
-                newPerson.CityName = p.CityName;
-                newPerson.Firstname = p.Firstname;
-                newPerson.Lastname = p.Lastname;
-                newPerson.Gender = p.Gender.ToString();
-                newPerson.PhoneNumber = p.PhoneNumber;
-                newPerson.PhoneNumberType = p.PhoneNumberType.ToString();
-                newPerson.ImageLink = p.ImageLink;
-                newPerson.IdNumber = p.IdNumber;
-
+                newPerson.PersonId = p.ConnectedPersonId;             
                 connectedPeople.Add(newPerson);
             }
 
             return connectedPeople;
         }
-        private List<PersonReadDto> GetConnectedPeople(List<Person> people)
-        {
-            var connectedPeople = new List<PersonReadDto>();
-            foreach (var p in people)
-            {
-                var newPerson = new PersonReadDto();
-
-                newPerson.ID = p.ID;
-                newPerson.BirthDate = p.BirthDate;                
-                newPerson.CityId = p.CityId!=null?(int)p.CityId:0;
-                newPerson.CityName = p.City != null ? p.City.Name : "";
-                newPerson.Firstname = p.Firstname;
-                newPerson.Lastname = p.Lastname;
-                newPerson.Gender = ((GenderEnum)p.Gender).ToString();
-                newPerson.PhoneNumber = p.PhoneNumber;
-                newPerson.PhoneNumberType =((PhoneNumTypeEnum) p.PhoneNumberType).ToString();
-                newPerson.ImageLink = p.ImageLink;
-                newPerson.IdNumber = p.IdNumber;
-
-                connectedPeople.Add(newPerson);
-            }
-
-            return connectedPeople;
-
-        }
+       
     }
 }

@@ -16,6 +16,8 @@ namespace UserAPI.BLL.IRepository
         Task<List<PersonModel>> GetPersonListAsync(PersonFilter filter);
         Task<Person> AddPersonAsync(AddPersonDto model);
         Task<Person> UpdatePersonAsync(UpdatePersonDto model);
+        Task<ImageModel> UpdatePersonImage(ImageModel imageModel);
         Task<OperationResult> DeletePersonAsync(int ID);
+
     }
 }

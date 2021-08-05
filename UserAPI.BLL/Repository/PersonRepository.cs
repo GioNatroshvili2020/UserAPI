@@ -11,6 +11,7 @@ using UserAPI.BLL.DTOs;
 using UserAPI.BLL.Enum;
 using UserAPI.BLL.Filter;
 using UserAPI.BLL.Helpers;
+using UserAPI.BLL.IMapper;
 using UserAPI.BLL.IRepository;
 using UserAPI.BLL.Model;
 
@@ -19,15 +20,22 @@ namespace UserAPI.BLL.Repository
     public class PersonRepository : IPersonRepository
     {
         private readonly IUnitOfWork _unitOfWork;
-
-        public PersonRepository(IUnitOfWork unitOfWork)
+        private readonly IPersonMapper _mapper;
+        public PersonRepository(IUnitOfWork unitOfWork, IPersonMapper mapper)
         {
             _unitOfWork = unitOfWork;
+            _mapper = mapper;
         }
 
         public  async Task<Person> GetPersonAsync(int ID)
         {
-            return  await _unitOfWork.Query<Person>().Where(n=>n.DateDeleted==null).Include(n => n.City).FirstOrDefaultAsync(n => n.ID == ID);
+            var person=  await _unitOfWork.Query<Person>().Where(n=>n.DateDeleted==null).Include(n => n.City).FirstOrDefaultAsync(n => n.ID == ID);
+
+            var connectedPeople = await _unitOfWork.Query<ConnectedPerson>().Where(x => x.PersonId == ID).ToListAsync();
+
+
+            person.ConnectedPeople = connectedPeople;
+            return person;
         }
 
 
@@ -57,7 +65,6 @@ namespace UserAPI.BLL.Repository
                     .Take(personFiler.PageSize).ToList();
 
             var personModelList = new List<PersonModel>();
-
             foreach(var p in persons)
             {
                 var newPerson = new PersonModel();
@@ -73,7 +80,9 @@ namespace UserAPI.BLL.Repository
                 newPerson.PhoneNumberType = (PhoneNumTypeEnum)p.PhoneNumberType;
                 newPerson.ImageLink = p.ImageLink;
                 newPerson.IdNumber = p.IdNumber;
-                newPerson.ConnectedPeople = await GetConnectedPeople(newPerson.ID);
+                var connectedPeople = await _unitOfWork.Query<ConnectedPerson>().Where(x => x.PersonId == p.ID).ToListAsync();
+                if(connectedPeople!=null && connectedPeople.Count>0)
+                    newPerson.ConnectedPeople = _mapper.GetConnectedPeopleModelList(connectedPeople);
 
                 personModelList.Add(newPerson);
             }
@@ -95,16 +104,21 @@ namespace UserAPI.BLL.Repository
             newPerson.DateCreated = DateTime.Now;
             if (model.ConnectedPeople != null && model.ConnectedPeople.Count>0)
             {
-                newPerson.ConnectedPeople = new List<Person>();
+                newPerson.ConnectedPeople = new List<ConnectedPerson>();
                 foreach (var p in model.ConnectedPeople)
                 {
 
-                    var personToAdd = await GetPersonAsync(p);
+                    var personToAdd = await GetPersonAsync(p.PersonId);
 
                     if (personToAdd == null)
                         throw new Exception("Connected User Not Found");
 
-                    newPerson.ConnectedPeople.Add(personToAdd);
+                    newPerson.ConnectedPeople.Add(new ConnectedPerson() { 
+                        ConnectedPersonId=p.PersonId,
+                        ConnectionType=(int)p.ConnectionType,
+                        DateCreated=DateTime.Now
+                        
+                    });
                 }
             }
            
@@ -137,7 +151,19 @@ namespace UserAPI.BLL.Repository
             }
             return null;
         }
+        public async Task<ImageModel> UpdatePersonImage(ImageModel imageModel)
+        {
+             var existingPerson = _unitOfWork.Query<Person>().FirstOrDefault(n => n.ID == imageModel.ImagePersonId);
+            if (existingPerson == null)
+                throw new Exception("User Not Found");
 
+            existingPerson.ImageLink = imageModel.ImagePath;
+           
+            await _unitOfWork.CommitAsync();
+
+            return imageModel;
+
+        }
         public async Task<OperationResult> DeletePersonAsync(int ID)
         {
             var result = new OperationResult(true);
@@ -152,33 +178,6 @@ namespace UserAPI.BLL.Repository
             await _unitOfWork.CommitAsync();
             return result;
         }
-
-
-
-
-        private async Task<List<PersonModel>> GetConnectedPeople(int ID)
-        {
-            var connectedPeople = await (from p in _unitOfWork.Query<Person>()
-                                         join c in _unitOfWork.Query<City>() on p.CityId equals c.ID
-                                         where p.DateDeleted == null && c.DateDeleted == null
-                                         select new PersonModel()
-                                         {
-                                             ID=p.ID,
-                                             BirthDate=p.BirthDate,
-                                             CityId=c.ID,
-                                             CityName=c.Name,
-                                             Firstname=p.Firstname,
-                                             Lastname=p.Lastname,
-                                             Gender=(GenderEnum)p.Gender,
-                                             PhoneNumber=p.PhoneNumber,
-                                             PhoneNumberType=(PhoneNumTypeEnum)p.PhoneNumberType,
-                                             ImageLink=p.ImageLink,
-                                             IdNumber=p.IdNumber,                                             
-                                         }).AsNoTracking().ToListAsync();
-            return connectedPeople;
-        }
-
-
         private async Task<List<Person>> QuickSearch(PersonFilter personFilter)
         {
             var people = await (from p in _unitOfWork.Query<Person>()
@@ -221,5 +220,7 @@ namespace UserAPI.BLL.Repository
             }          
             return FilteredList;
         }
+
+      
     }
 }

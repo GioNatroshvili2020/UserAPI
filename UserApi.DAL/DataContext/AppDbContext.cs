@@ -10,6 +10,7 @@ namespace UserApi.DAL.DataContext
 
         }
         public DbSet<Person> Person { get; set; }
+        public DbSet<ConnectedPerson> ConnectedPeople { get; set; }
         public DbSet<City> City { get; set; }
 
 

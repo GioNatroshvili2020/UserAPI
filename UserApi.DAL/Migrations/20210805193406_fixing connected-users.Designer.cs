@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using UserApi.DAL.DataContext;
 
 namespace UserApi.DAL.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210805193406_fixing connected-users")]
+    partial class fixingconnectedusers
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -65,12 +67,12 @@ namespace UserApi.DAL.Migrations
                     b.Property<DateTime?>("DateDeleted")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("PersonId")
+                    b.Property<int?>("PersonID")
                         .HasColumnType("int");
 
                     b.HasKey("ID");
 
-                    b.HasIndex("PersonId");
+                    b.HasIndex("PersonID");
 
                     b.ToTable("ConnectedPeople");
                 });
@@ -134,13 +136,9 @@ namespace UserApi.DAL.Migrations
 
             modelBuilder.Entity("UserApi.DAL.Entities.ConnectedPerson", b =>
                 {
-                    b.HasOne("UserApi.DAL.Entities.Person", "Person")
+                    b.HasOne("UserApi.DAL.Entities.Person", null)
                         .WithMany("ConnectedPeople")
-                        .HasForeignKey("PersonId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Person");
+                        .HasForeignKey("PersonID");
                 });
 
             modelBuilder.Entity("UserApi.DAL.Entities.Person", b =>

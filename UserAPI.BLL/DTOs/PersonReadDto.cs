@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UserAPI.BLL.Model;
 
 namespace UserAPI.BLL.DTOs
 {
@@ -29,6 +30,6 @@ namespace UserAPI.BLL.DTOs
 
         public string ImageLink { get; set; }
 
-        public List<PersonReadDto> ConnectedPeople { get; set; }
+        public List<ReadConnectedPersonDto> ConnectedPeople { get; set; }
     }
 }
