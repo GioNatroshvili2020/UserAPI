@@ -7,6 +7,7 @@ namespace UserApi.DAL.DataContext
     {
         public AppDbContext(DbContextOptions options) : base(options)
         {
+            base.Database.Migrate();
 
         }
         public DbSet<Person> Person { get; set; }
