@@ -50,7 +50,7 @@ namespace UserAPI.BLL.Model
 
         public string ImageLink { get; set; }
 
-        public  List<PersonModel> ConnectedPeople { get; set; }
+        public  List<ConnectedPersonModel> ConnectedPeople { get; set; }
        public DateTime DateCreated { get; set; }
     }
 }

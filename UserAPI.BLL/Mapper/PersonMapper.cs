@@ -69,6 +69,27 @@ namespace UserAPI.BLL.Mapper
             return personDtoList;
         }
 
+        public ConnectedPersonModel GetConnectedPersonModel(Person_ConnectedPerson person)
+        {
+            return new ConnectedPersonModel()
+            {
+                PersonId = person.PersonId,
+                ConnectionType = ((ConnectionTypeEnum)person.ConnectionType).ToString(),
+                Firstname = person.ConnectedPerson.Firstname,
+                Lastname = person.ConnectedPerson.Lastname
+            };
+        }
+
+        public List<ConnectedPersonModel> GetConnectedPersonModelList(List<Person_ConnectedPerson> person)
+        {
+            var list = new List<ConnectedPersonModel>();
+            foreach (var p in person)
+            {
+                list.Add(GetConnectedPersonModel(p));
+            }
+            return list;
+        }
+
 
         private List<PersonReadDto> GetConnectedPeople(List<PersonModel> people)
         {
@@ -119,5 +140,7 @@ namespace UserAPI.BLL.Mapper
             return connectedPeople;
 
         }
+
+        
     }
 }

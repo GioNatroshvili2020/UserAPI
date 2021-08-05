@@ -11,6 +11,7 @@ using UserAPI.BLL.DTOs;
 using UserAPI.BLL.Enum;
 using UserAPI.BLL.Filter;
 using UserAPI.BLL.Helpers;
+using UserAPI.BLL.IMapper;
 using UserAPI.BLL.IRepository;
 using UserAPI.BLL.Model;
 
@@ -19,10 +20,12 @@ namespace UserAPI.BLL.Repository
     public class PersonRepository : IPersonRepository
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IPersonMapper _mapper;
 
-        public PersonRepository(IUnitOfWork unitOfWork)
+        public PersonRepository(IUnitOfWork unitOfWork, IPersonMapper mapper)
         {
             _unitOfWork = unitOfWork;
+            _mapper = mapper;
         }
 
         public  async Task<Person> GetPersonAsync(int ID)
@@ -73,7 +76,8 @@ namespace UserAPI.BLL.Repository
                 newPerson.PhoneNumberType = (PhoneNumTypeEnum)p.PhoneNumberType;
                 newPerson.ImageLink = p.ImageLink;
                 newPerson.IdNumber = p.IdNumber;
-                newPerson.ConnectedPeople = await GetConnectedPeople(newPerson.ID);
+                var connectedPeople = await GetConnectedPeople(p.ID);
+                newPerson.ConnectedPeople = _mapper.GetConnectedPersonModelList(connectedPeople);
 
                 personModelList.Add(newPerson);
             }
@@ -95,7 +99,7 @@ namespace UserAPI.BLL.Repository
             newPerson.DateCreated = DateTime.Now;
             if (model.ConnectedPeople != null && model.ConnectedPeople.Count>0)
             {
-                newPerson.ConnectedPeople = new List<Person>();
+                newPerson.ConnectedPeople = new List<Person_ConnectedPerson>();
                 foreach (var p in model.ConnectedPeople)
                 {
 
@@ -104,7 +108,7 @@ namespace UserAPI.BLL.Repository
                     if (personToAdd == null)
                         throw new Exception("Connected User Not Found");
 
-                    newPerson.ConnectedPeople.Add(personToAdd);
+                    var newEntry = new Person_ConnectedPerson();
                 }
             }
            
@@ -156,25 +160,32 @@ namespace UserAPI.BLL.Repository
 
 
 
-        private async Task<List<PersonModel>> GetConnectedPeople(int ID)
+        //private async Task<List<PersonModel>> GetConnectedPeople(int ID)
+        //{
+        //    var connectedPeople = await (from p in _unitOfWork.Query<Person>()
+        //                                 join c in _unitOfWork.Query<City>() on p.CityId equals c.ID
+        //                                 where p.DateDeleted == null && c.DateDeleted == null
+        //                                 select new PersonModel()
+        //                                 {
+        //                                     ID=p.ID,
+        //                                     BirthDate=p.BirthDate,
+        //                                     CityId=c.ID,
+        //                                     CityName=c.Name,
+        //                                     Firstname=p.Firstname,
+        //                                     Lastname=p.Lastname,
+        //                                     Gender=(GenderEnum)p.Gender,
+        //                                     PhoneNumber=p.PhoneNumber,
+        //                                     PhoneNumberType=(PhoneNumTypeEnum)p.PhoneNumberType,
+        //                                     ImageLink=p.ImageLink,
+        //                                     IdNumber=p.IdNumber,                                             
+        //                                 }).AsNoTracking().ToListAsync();
+        //    return connectedPeople;
+        //}
+
+        private async Task<List<Person_ConnectedPerson>> GetConnectedPeople(int ID)
         {
-            var connectedPeople = await (from p in _unitOfWork.Query<Person>()
-                                         join c in _unitOfWork.Query<City>() on p.CityId equals c.ID
-                                         where p.DateDeleted == null && c.DateDeleted == null
-                                         select new PersonModel()
-                                         {
-                                             ID=p.ID,
-                                             BirthDate=p.BirthDate,
-                                             CityId=c.ID,
-                                             CityName=c.Name,
-                                             Firstname=p.Firstname,
-                                             Lastname=p.Lastname,
-                                             Gender=(GenderEnum)p.Gender,
-                                             PhoneNumber=p.PhoneNumber,
-                                             PhoneNumberType=(PhoneNumTypeEnum)p.PhoneNumberType,
-                                             ImageLink=p.ImageLink,
-                                             IdNumber=p.IdNumber,                                             
-                                         }).AsNoTracking().ToListAsync();
+            var connectedPeople = await _unitOfWork.Query<Person_ConnectedPerson>().Where(p => p.PersonId == ID).ToListAsync();
+                     
             return connectedPeople;
         }
 
