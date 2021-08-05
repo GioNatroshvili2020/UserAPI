@@ -19,4 +19,7 @@
     <ProjectReference Include="..\UserAPI.BLL\UserAPI.BLL.csproj" />
     <ProjectReference Include="..\UserApi.DAL\UserApi.DAL.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resources\Images\" />
+  </ItemGroup>
 </Project>

@@ -23,6 +23,8 @@ using NLog;
 using System;
 using API.Extensions;
 using API.ActionFilters;
+using Microsoft.AspNetCore.Http.Features;
+using Microsoft.Extensions.FileProviders;
 
 namespace API
 {
@@ -48,6 +50,15 @@ namespace API
             services.AddOptions();
             services.AddSingleton<ILoggerManager, LoggerManager>();
             services.AddScoped<ValidationFilterAttribute>();
+
+            services.Configure<FormOptions>(o =>
+            {
+                o.ValueLengthLimit = int.MaxValue;
+                o.MultipartBodyLengthLimit = int.MaxValue;
+                o.MemoryBufferThreshold = int.MaxValue;
+            });
+
+
 
             services.AddControllers();
             services.AddDbContext<AppDbContext>(x => x.UseSqlServer(_configuration.GetConnectionString("DBConnection")));
@@ -87,7 +98,12 @@ namespace API
             app.UseAuthorization();
 
             app.UseStaticFiles();
-   
+            app.UseStaticFiles(new StaticFileOptions()
+            {
+                FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), @"Resources")),
+                RequestPath = new PathString("/Resources")
+            });
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

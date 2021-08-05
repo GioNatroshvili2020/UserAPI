@@ -1,14 +1,18 @@
 ﻿using API.ActionFilters;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using UserApi.DAL.Entities;
 using UserAPI.BLL.DTOs;
 using UserAPI.BLL.Filter;
 using UserAPI.BLL.IMapper;
 using UserAPI.BLL.IRepository;
+using UserAPI.BLL.Model;
 
 namespace API.Controllers
 {
@@ -17,6 +21,7 @@ namespace API.Controllers
     {
         private readonly IPersonRepository _repository;
         private readonly IPersonMapper _mapper;
+
         public UserController(IPersonRepository repository, IPersonMapper mapper)
         {
             _repository = repository;
@@ -46,7 +51,7 @@ namespace API.Controllers
 
         [HttpPost]
         [ServiceFilter(typeof(ValidationFilterAttribute))]
-        public async Task<IActionResult> CreatePerson(AddPersonDto person)
+        public async Task<IActionResult> CreatePerson( [FromBody]AddPersonDto person)
         {
           
             var result = await _repository.AddPersonAsync(person);
@@ -76,5 +81,49 @@ namespace API.Controllers
             else
                 return Ok(res.Message);
         }
+        [HttpPost, DisableRequestSizeLimit]
+        public IActionResult UpdateImage(ImageUploadModel model)
+        {
+            
+                var file = model.Image;
+                var folderName = Path.Combine("Resources", "Images");
+                var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);
+
+                if (file.Length > 0)
+                {
+                    var fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
+                    string uniquePrefix = Guid.NewGuid().ToString().Substring(0, 4);
+                    var fullPath = Path.Combine(pathToSave, uniquePrefix + "_" + fileName);
+                    var dbPath = Path.Combine(folderName, uniquePrefix + "_" + fileName);
+
+                    using (var stream = new FileStream(fullPath, FileMode.Create))
+                    {
+                        file.CopyTo(stream);
+                    }
+                    _repository.UpdatePersonImage(new ImageModel() { 
+                        ImagePath=dbPath,
+                        ImagePersonId= model.PersonId,
+                    });
+                    return Ok(new { dbPath });
+                }
+                else
+                {
+                    return BadRequest("File is Empty");
+                }            
+        }
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetPersonImage(int id)
+        {
+            var person = await _repository.GetPersonAsync(id);
+            if(person==null)
+                return NotFound();
+
+            var image = System.IO.File.OpenRead(person.ImageLink);
+
+
+            return File(image, "image/jpeg");
+        }
+
+
     }
 }

@@ -194,3 +194,6 @@ C:\Users\bombo\OneDrive\Desktop\tbc task\angular proj\ECommerceApp-c09eaeb4fab22
 C:\Users\bombo\OneDrive\Desktop\tbc task\angular proj\ECommerceApp-c09eaeb4fab22de6f7115cbc15c53adc228b00ee\API\bin\Debug\net5.0\NLog.Extensions.Logging.dll
 C:\Users\bombo\OneDrive\Desktop\tbc task\angular proj\ECommerceApp-c09eaeb4fab22de6f7115cbc15c53adc228b00ee\API\bin\Debug\net5.0\UserAPI.LoggerService.dll
 C:\Users\bombo\OneDrive\Desktop\tbc task\angular proj\ECommerceApp-c09eaeb4fab22de6f7115cbc15c53adc228b00ee\API\bin\Debug\net5.0\UserAPI.LoggerService.pdb
+C:\Users\bombo\OneDrive\Desktop\tbc task\angular proj\ECommerceApp-c09eaeb4fab22de6f7115cbc15c53adc228b00ee\API\bin\Debug\net5.0\Microsoft.AspNetCore.Http.Features.dll
+C:\Users\bombo\OneDrive\Desktop\tbc task\angular proj\ECommerceApp-c09eaeb4fab22de6f7115cbc15c53adc228b00ee\API\bin\Debug\net5.0\Microsoft.Extensions.Primitives.dll
+C:\Users\bombo\OneDrive\Desktop\tbc task\angular proj\ECommerceApp-c09eaeb4fab22de6f7115cbc15c53adc228b00ee\API\bin\Debug\net5.0\System.IO.Pipelines.dll
